@@ -23,11 +23,13 @@ echo "OK_HEADER" | nc localhost 7777
 
 echo "5. LISTEN FILE_NAME"
 
-DATA=`nc -l 7777 | cut -d " " -f 1`
+DATA=`nc -l 7777`
+
+FILE_NAME_PREFIX=`echo "$DATA" | cut -d " " -f 1`
 
 echo "9. CHECK FILE_NAME"
 
-if [ "$DATA" != "FILE_NAME"  ]; then
+if [ "$FILE_NAME_PREFIX" != "FILE_NAME"  ]; then
 	
 	echo "ERROR 3: Prefix unkown. $DATA"
 
