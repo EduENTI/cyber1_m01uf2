@@ -6,7 +6,7 @@ IP_SERVER="localhost"
 
 FILE="saludo.ogg"
 
-IP_CLIENT=`ip a | grep "inet " | grep brd | cut -d " " -f 6 | cut -d "/" -f 1`
+IP_CLIENT=`ip a | grep "inet " | grep global | cut -d " " -f 6 | cut -d "/" -f 1`
 
 echo "LSTP Client (Lechuga Speaker Transfer Protocol)"
 
