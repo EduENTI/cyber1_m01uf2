@@ -66,12 +66,30 @@ echo "13. LISTEN OK_FILE_DATA"
 
 DATA=`nc -l $PORT`
 
-echo "15. CHECK OK_FILE_DATA"
+echo "16. CHECK OK_FILE_DATA"
 
 if [ "$DATA" != "OK_FILE_DATA" ]; then
 
 	echo "ERROR 3: No data in sent file. $DATA"
 
 	exit 3
+
+fi
+
+echo "17. SEND MD5"
+
+MD5=`cat $FILE | md5sum | cut -d " " -f 1`
+
+echo "$MD5" | nc $IP_SERVER $PORT
+
+echo "18. LISTEN OK_MD5"
+
+DATA=`nc -l $PORT`
+
+echo "21. CHECK OK_MD5"
+
+if [ $DATA != "OK_MD5" ]; then
+	
+	echo "ERROR 4: MD5 not coincident."
 
 fi

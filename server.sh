@@ -69,7 +69,26 @@ if [ $FILE_SIZE == 0 ]; then
 
 fi
 
-echo "OK_FILE_DATA" | nc $IP_CLIENT $PORT
+echo "15. LISTEN MD5"
+
+DATA=`nc -l $PORT`
+
+MD5_COMPROBAR=`cat server/$FILE_NAME | md5sum | cut -d " " -f 1`
+
+echo "19. CHECK MD5"
+
+if [ $DATA != $MD5_COMPROBAR  ]; then
+
+	echo "KO_MD5" | nc $IP_CLIENT $PORT
+	echo "ERROR 4: File data corrupted."
+	echo "Original md5: $DATA"
+	echo "Checked md5: $MD5_COMPROBAR"
+
+fi
+
+echo "20. SEND OK_MD5"
+
+echo "OK_MD5" | nc $IP_CLIENT $PORT
 
 echo "END"
 
