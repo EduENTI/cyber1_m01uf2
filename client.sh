@@ -1,8 +1,19 @@
 #!/bin/bash
 
+if [ $# -ne 1  ]; then
+
+	echo "ERROR: Malformed instruction. This command requires at least one parameter."
+
+	echo -e "\n\tUse example: $0 127.0.0.1"
+
+	echo " "
+
+	exit 1
+fi
+
 PORT=7777
 
-IP_SERVER="localhost"
+IP_SERVER=$1
 
 FILE="saludo.ogg"
 
@@ -33,7 +44,7 @@ fi
 
 echo "7. SEND FILE_NAME"
 
-echo "FILE_NAME saludo.ogg" | nc $IP_SERVER $PORT
+echo "FILE_NAME $FILE" | nc $IP_SERVER $PORT
 
 echo "8. LISTEN PREFIX_OK"
 
@@ -54,3 +65,13 @@ cat "$FILE" | nc $IP_SERVER $PORT
 echo "13. LISTEN OK_FILE_DATA"
 
 DATA=`nc -l $PORT`
+
+echo "15. CHECK OK_FILE_DATA"
+
+if [ "$DATA" != "OK_FILE_DATA" ]; then
+
+	echo "ERROR 3: No data in sent file. $DATA"
+
+	exit 3
+
+fi

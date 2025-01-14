@@ -12,6 +12,8 @@ PROTOCOL_PREFIX=`echo "$DATA" | cut -d " " -f 1`
 
 echo "3. CHECK HEADER"
 
+IP_CLIENT=`echo "$DATA" | cut -d " " -f 2`
+
 if [ "$PROTOCOL_PREFIX" != "LSTP_1.1"  ]; then
 
 	echo "ERROR 1: Header malformed. $DATA"
@@ -20,8 +22,6 @@ if [ "$PROTOCOL_PREFIX" != "LSTP_1.1"  ]; then
 
 	exit 1
 fi
-
-IP_CLIENT=`echo "$DATA" | cut -d " " -f 2`
 
 echo "4. SEND OK_HEADER"
 
@@ -68,4 +68,9 @@ if [ $FILE_SIZE == 0 ]; then
 	exit 3
 
 fi
- echo "OK_FILE_DATA" | nc $IP_CLIENT $PORT
+
+echo "OK_FILE_DATA" | nc $IP_CLIENT $PORT
+
+echo "END"
+
+exit 0
