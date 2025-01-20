@@ -60,7 +60,7 @@ fi
 
 echo "12. SEND FILE_DATA"
 
-cat "$FILE" | nc $IP_SERVER $PORT
+cat "client/$FILE" | nc $IP_SERVER $PORT
 
 echo "13. LISTEN OK_FILE_DATA"
 
@@ -78,7 +78,7 @@ fi
 
 echo "17. SEND MD5"
 
-MD5=`cat $FILE | md5sum | cut -d " " -f 1`
+MD5=`cat "client/$FILE" | md5sum | cut -d " " -f 1`
 
 echo "$MD5" | nc $IP_SERVER $PORT
 
@@ -88,8 +88,10 @@ DATA=`nc -l $PORT`
 
 echo "21. CHECK OK_MD5"
 
-if [ $DATA != "OK_MD5" ]; then
+if [ $DATA != "OK_FILE_DATA_MD5" ]; then
 	
 	echo "ERROR 4: MD5 not coincident."
 
 fi
+
+exit 0

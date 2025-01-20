@@ -59,7 +59,7 @@ echo "14. SEND OK_FILE_DATA"
 
 FILE_SIZE=`ls -l server/$FILE_NAME | cut -d " " -f 5`
 
-if [ $FILE_SIZE == 0 ]; then
+if [ $FILE_SIZE -eq 0 ]; then
 
 	echo "ERROR 3: No file data. File size: $FILE_SIZE B."
 
@@ -69,17 +69,19 @@ if [ $FILE_SIZE == 0 ]; then
 
 fi
 
+echo "OK_FILE_DATA" | nc $IP_CLIENT $PORT
+
 echo "15. LISTEN MD5"
 
 DATA=`nc -l $PORT`
 
-MD5_COMPROBAR=`cat server/$FILE_NAME | md5sum | cut -d " " -f 1`
+MD5_COMPROBAR=`cat "server/$FILE_NAME" | md5sum | cut -d " " -f 1`
 
 echo "19. CHECK MD5"
 
-if [ $DATA != $MD5_COMPROBAR  ]; then
+if [ $DATA != $MD5_COMPROBAR ]; then
 
-	echo "KO_MD5" | nc $IP_CLIENT $PORT
+	echo "KO_FILE_DATA_MD5" | nc $IP_CLIENT $PORT
 	echo "ERROR 4: File data corrupted."
 	echo "Original md5: $DATA"
 	echo "Checked md5: $MD5_COMPROBAR"
@@ -88,7 +90,7 @@ fi
 
 echo "20. SEND OK_MD5"
 
-echo "OK_MD5" | nc $IP_CLIENT $PORT
+echo "OK_FILE_DATA_MD5" | nc $IP_CLIENT $PORT
 
 echo "END"
 
