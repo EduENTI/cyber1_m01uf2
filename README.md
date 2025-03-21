@@ -67,4 +67,8 @@ body {
 ## Enlaces
 
 [Esto es un enlace](https://enti.cat)
+
 [https://enti.cat](https://google.com)
+
+## Imágenes
+![Logo de Markdown](https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg)
