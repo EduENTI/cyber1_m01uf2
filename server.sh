@@ -62,7 +62,7 @@ if [ "$NUM_FILES_CHECK" == "" ]; then
 
 fi
 
-if [ "$NUM_FILES" -lt 1 ] then;
+if [ "$NUM_FILES" -lt 1 ]; then
 
 	echo "ERROR 7: Number of files cannot be less than one."
 
