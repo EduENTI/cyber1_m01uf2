@@ -65,7 +65,7 @@ fi
 
 echo "7.3 SEND FILES"
 
-for FILE_NAME in `ls $WORKING_DIR/*.lechu`; do
+for FILE_NAME in `ls $CLIENT_DIR/*.lechu`; do
 
 	FILE_NAME=`basename $FILE_NAME`
 
